@@ -1,0 +1,313 @@
+import React from "react";
+import "./index.less";
+import {Button} from "antd";
+
+import arr from './data.json'
+
+// 垂直间距
+// eslint-disable-next-line no-underscore-dangle
+const _verticalGap = 20;
+// 水平间距
+const _horizontalGap = 30;
+// 展示为从左到右的级别
+const horizontalLevel = 2;
+
+const childrenLoop = (arr:any,len=0)=>{
+  len ++;
+  arr.find((item:any)=>{
+    if(item.children){
+      len = childrenLoop(item.children,len)
+      return true;
+    }
+  })
+
+  return len;
+}
+
+const LoopItem = ({
+                    children,item,setShowChildren,arrIndex,objOpen,
+}:{
+  children:any,item:any,setShowChildren:any,arrIndex:number[],objOpen:object,callParentRefresh?:any,objChildrenData:object,
+  isLast:boolean,isFirst:boolean
+})=>{
+  const len = arrIndex.length;
+  const hasChild = item.children && item.children.length;
+  const key = arrIndex.join('_');
+  const showChildren = objOpen[key];
+  const loopItemRef = React.useRef(null) as any;
+
+  const horizontalGap = len < horizontalLevel ? 10: _horizontalGap;
+  const verticalGap = _verticalGap;
+
+  return (
+    <div className="level" style={{
+      position:'relative',
+      paddingLeft:horizontalGap,
+      paddingRight:horizontalGap / 2,
+      paddingTop: verticalGap,
+      ...(len === 1 ?{textAlign:'center'}:{textAlign: 'left'}),
+
+    }}>
+      <div className="title" >
+        {
+          hasChild? <div>
+            <div>{item.label}</div>
+            <div>({item.onJob}+{item.toBeEmployed}+{item.recruitment}={item.onJob+item.toBeEmployed+item.recruitment})</div>
+            <div>{item.leader}</div>
+          </div>
+            :<div>{item.label}</div>
+        }
+
+        {
+          hasChild?(
+            <span className="collapse"
+                  onClick={()=>{
+            setShowChildren(!showChildren,arrIndex);
+          }}
+                  style={(len>=horizontalLevel)?{left:(horizontalGap/2)}:{}}
+            >
+              {showChildren ? '-':'+'}
+            </span>
+          ):null
+        }
+
+
+
+        {(len <horizontalLevel) ?<span className="line" style={(hasChild && showChildren) ?{height:verticalGap/2,bottom:-(verticalGap/2+1)}:{}} /> :null}
+        {len >horizontalLevel ? <div className="line-2" style={{width:horizontalGap/2,left:-(horizontalGap/2+1)}}/>:null}
+        {(len > horizontalLevel) ?<span className="vertial-line" style={{height:`calc(50% + ${verticalGap+1}px)`,left:-(horizontalGap/2+1), top:-(verticalGap+1)}} /> :null}
+        {(len>1 && len <=horizontalLevel) ?<div className="line" style={{height:verticalGap/2,top:-(verticalGap/2+1)}} />:null}
+        {(len>1 && len <=horizontalLevel) ?<div className="horizontal-line"
+                                                style={{
+                                                  top:-(verticalGap/2+1),
+                                                  width:`calc(50% + ${horizontalGap}px)`,
+                                                  left:-horizontalGap
+                                                }} />:null}
+
+      </div>
+
+      {
+        (hasChild)? <div ref={loopItemRef}
+                         className="content"
+                         style={{
+          flexDirection:arrIndex.length >1 ? 'column':'row',
+          ...(!showChildren?{display: 'none'}:{})
+        }}>
+          {children}
+        </div> :null
+      }
+
+      {(len>1 && len <=horizontalLevel) ?<div className="horizontal-line" style={(len>1)?{top:verticalGap/2}:{}} />:null}
+
+      {len >horizontalLevel ? <div className="vertial-line" style={{left:(horizontalGap/2)}} />:null}
+
+    </div>
+  )
+}
+
+const loop = (orgList:any[],arrIndex:number[]=[],setShowChildren:any,objOpen:object,callParentRefresh?:any,objChildrenData:object)=>{
+  return orgList?.map((item:any,index)=>{
+    const hasChild = item.children && item.children.length;
+    const newArrIndex:number[] = [...arrIndex,index];
+
+    return (
+      <LoopItem item={item}
+                arrIndex={newArrIndex}
+                setShowChildren={setShowChildren}
+                objOpen={objOpen}
+                callParentRefresh={callParentRefresh}
+                objChildrenData={objChildrenData}
+                isLast={index === orgList.length-1}
+                isFirst={index === 0}
+      >
+        {
+          hasChild ? loop(item.children,newArrIndex,setShowChildren,objOpen,callParentRefresh,objChildrenData):null
+        }
+      </LoopItem>
+    )
+  })
+}
+const step = 0.1;
+export default ()=>{
+
+  const [objOpen,setObjOpen] = React.useState({} as object);
+  const [objChildrenData,setObjChildrenData] = React.useState({} as object);
+  const [scale,setScale] = React.useState(1);
+  const [left,setLeft] = React.useState(50);
+  const [pageStart,setPageStart] = React.useState({
+    x:0,
+    y:0
+  });
+  const [pageEnd,setPageEnd] = React.useState({
+    x:0,
+    y:0
+  });
+
+  const callParentRefresh = (data:any)=>{
+    setObjChildrenData({
+      ...objChildrenData,...data
+    });
+  }
+
+  React.useEffect(()=>{
+    // setTimeout(()=>{
+    //   html2canvas(document.getElementById('organization')).then(function(canvas) {
+    //     document.getElementById('organization').appendChild(canvas);
+    //   });
+    // },3000)
+  },[])
+
+  const handleDragStart = (e:any)=>{
+    console.info(e);
+
+    if((pageStart.x === 0 || pageStart.y === 0) ){
+      setPageStart({
+        x:e.pageX,
+        y:e.pageY
+      });
+    }
+    if((pageEnd.x === 0 || pageEnd.y === 0) ){
+      setPageEnd({
+        x:e.pageX,
+        y:e.pageY
+      });
+    }
+  }
+
+  // todo: 拖动很慢
+  const handleDrag = (e:any)=>{
+    console.info(e.pageX);
+
+    e.preventDefault();
+    const gapX = Math.abs(e.pageX - pageEnd.x);
+    const gapY = Math.abs(e.pageY - pageEnd.y);
+    if(e.pageX >0 && e.pageY > 0 && (gapX > 5 || gapY > 5)){
+      setPageEnd({
+        x:e.pageX,
+        y:e.pageY
+      })
+    }
+  }
+
+  const gapX = pageEnd.x - pageStart.x;
+  const gapY = pageEnd.y - pageStart.y;
+
+  const [params,setParams] = React.useState({
+    left:0,
+    top:0,
+    currentX:0,
+    currentY:0,
+    flag:false
+  });
+
+
+  const getCss = function(o:any,key:any){
+    // @ts-ignore
+    return o.currentStyle? o.currentStyle[key] : document.defaultView.getComputedStyle(o,false)[key];
+  };
+
+  const handleMouseDown = (e:any)=>{
+    params.flag = true;
+    const target = document.getElementById('organizationContainer')
+    if(params.left === 0){
+      params.left = getCss(target,'left')
+    }
+
+    if(params.top === 0){
+      params.top = getCss(target,'top')
+    }
+
+    console.info(e.clientX,e.clientY,params.left,params.top)
+    params.currentX = e.clientX;
+    params.currentY = e.clientY;
+    setParams(params);
+  }
+
+  React.useEffect(()=>{
+    document.onmouseup = function(){
+      const target = document.getElementById('organizationContainer')
+      params.flag = false;
+      console.info('mouseup');
+      if(getCss(target, "left") !== "auto"){
+        params.left = getCss(target, "left");
+      }
+      if(getCss(target, "top") !== "auto"){
+        params.top = getCss(target, "top");
+      }
+
+      setParams(params);
+    };
+    // @ts-ignore
+    // eslint-disable-next-line consistent-return
+    document.onmousemove = (event:any)=>{
+      const e = event || window.event;
+
+      if(params.flag){
+        const target:any = document.getElementById('organizationContainer')
+        const nowX:number = e.clientX; const nowY = e.clientY;
+        const disX:number = nowX - params.currentX; const disY = nowY - params.currentY;
+
+        const l = parseInt(String(params.left),10) + disX;
+        const t = parseInt(String(params.top),10) + disY;
+
+        const {clientWidth} = target;
+        const {clientHeight} = target;
+        if(t+clientHeight>0){
+          target.style.top = `${ t }px`;
+        }
+
+        if(l+clientWidth/2-20>0){
+          target.style.left = `${ l }px`;
+        }
+
+        // setParams(params);
+        if (event.preventDefault) {
+          event.preventDefault();
+        }
+        return false;
+      }
+    }
+  },[])
+
+
+  return (
+    <>
+      <Button onClick={()=>{
+        setScale(scale+step)
+      }}>放大</Button>
+      <Button onClick={()=>{
+        setScale(scale-step)
+      }}>缩小</Button>
+    <div id="organization" className="wrapper"
+    >
+      <div className="organization"
+           id="organizationContainer"
+           style={{transform:`translateX(-${left}%) scale(${scale})`,left:`calc(${left}% + ${params.left}px)`,top:params.top}}>
+        <div className="content"
+             onMouseDown={handleMouseDown}
+             // draggable
+             // onDragStart={handleDragStart}
+             // onDrag={handleDrag}
+        >
+           {
+            loop(arr,[],
+              (status:boolean,arrIndex:number[])=>{
+                const key = arrIndex.join('_');
+
+                if(objOpen[key]){
+                  objOpen[key] = false
+                }else{
+                  objOpen[key] = true
+                }
+
+                setObjOpen({...objOpen});
+              },objOpen,callParentRefresh,objChildrenData
+            )
+           }
+        </div>
+
+      </div>
+    </div>
+</>
+  )
+}
