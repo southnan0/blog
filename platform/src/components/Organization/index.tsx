@@ -2,10 +2,13 @@ import React from "react";
 import "./index.less";
 import {Button} from "antd";
 import {
+  backgroundColor,
+  borderColor,
+  borderWidth,
   drawHorizontalLink,
   drawHorizontalLinkMain,
   drawVertialLink,
-  drawVertialLinkMain, getTitleContent, onMouseDown, onMouseOver, onMouseUp
+  drawVertialLinkMain, getTitleContent, onMouseDown, onMouseOver, onMouseUp, vertialLinkLeftLineWidth
 } from "@/components/Organization/utils";
 import arr from './data.json'
 
@@ -19,20 +22,21 @@ const _horizontalGap = 30;
 // 展示为从左到右的级别
 const horizontalLevel = 2;
 
-const LoopItem = ({
-                    children, item, setShowChildren, arrIndex, objOpen,
-                  }: {
-  children: any, item: any, setShowChildren: any, arrIndex: number[], objOpen: object
-}) => {
+const LoopItem = (
+  {
+    children, item, setShowChildren, arrIndex, objOpen,isFirst,isLast
+  }: {
+    children: any, item: any, setShowChildren: any, arrIndex: number[], objOpen: object,isFirst:boolean,isLast:boolean
+  }) => {
   const len = arrIndex.length;
   const hasChild = item.children && item.children.length;
   const key = arrIndex.join('_');
   const showChildren = objOpen[key];
   const loopItemRef = React.useRef(null) as any;
 
-  const horizontalGap = len < horizontalLevel ? 10 : _horizontalGap;
+  const horizontalGap = len < horizontalLevel ? 15 : _horizontalGap;
   const verticalGap = _verticalGap;
-
+  const leftLineLeft = horizontalGap - vertialLinkLeftLineWidth(horizontalGap);
   return (
     <div className="level" style={{
       paddingLeft: horizontalGap,
@@ -40,7 +44,7 @@ const LoopItem = ({
       paddingTop: verticalGap,
       textAlign: len === 1 ? 'center' : 'left',
     }}>
-      <article className="title">
+      <article className="title" style={{borderWidth,borderColor}}>
         {getTitleContent(item)}
 
         {
@@ -49,16 +53,20 @@ const LoopItem = ({
                   onClick={() => {
                     setShowChildren(!showChildren, arrIndex);
                   }}
-                  style={(len >= horizontalLevel) ? {left: (horizontalGap / 2)} : {}}
+                  style={{
+                    ...(len >= horizontalLevel ? {left: leftLineLeft} : {}),
+                    backgroundColor,
+                    border:`${borderWidth}px solid ${borderColor}`
+                  }}
             >
               {showChildren ? '-' : '+'}
             </span>
           ) : null
         }
 
-        {drawHorizontalLink({showChildren, verticalGap, len, horizontalLevel, horizontalGap})}
+        {drawHorizontalLink({showChildren, verticalGap, len, horizontalLevel, horizontalGap,isFirst,isLast})}
 
-        {drawVertialLink({len, horizontalLevel, horizontalGap, verticalGap})}
+        {drawVertialLink({len, horizontalLevel, horizontalGap, verticalGap,isLast})}
       </article>
 
       {
@@ -74,11 +82,11 @@ const LoopItem = ({
 
       {/* 贯穿所有孩子的大长线 */}
       {drawHorizontalLinkMain({
-        len, horizontalLevel, verticalGap
+        len, horizontalLevel, verticalGap,isFirst,isLast
       })}
 
       {drawVertialLinkMain({
-        len, horizontalLevel, horizontalGap
+        len, horizontalLevel, horizontalGap,isLast
       })}
 
     </div>
@@ -95,6 +103,8 @@ const loop = (orgList: any[], arrIndex: number[] = [], setShowChildren: any, obj
                 arrIndex={newArrIndex}
                 setShowChildren={setShowChildren}
                 objOpen={objOpen}
+                isFirst={index === 0}
+                isLast={index === orgList.length-1}
       >
         {
           hasChild ? loop(item.children, newArrIndex, setShowChildren, objOpen) : null
@@ -127,6 +137,9 @@ export default () => {
     const handleMouseOver = onMouseOver(params, 'organizationContainer')
     document.addEventListener('mouseover', handleMouseOver)
     document.addEventListener('mouseup', handleMouseUp)
+    document.addEventListener('mousewheel',function(event:any){
+      console.log( event.wheelDelta )
+    },false)
     return () => {
       document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseup', handleMouseUp)
@@ -141,8 +154,7 @@ export default () => {
       <Button onClick={() => {
         setScale(scale - step)
       }}>缩小</Button>
-      <div id="organization" className="wrapper"
-      >
+      <div id="organization" className="wrapper">
         <div className="organization"
              id="organizationContainer"
              style={{
@@ -151,8 +163,7 @@ export default () => {
                top: params.top
              }}>
         <span className="content"
-              onMouseDown={handleMouseDown}
-        >
+              onMouseDown={handleMouseDown}>
            {
              loop(arr, [],
                (status: boolean, arrIndex: number[]) => {
