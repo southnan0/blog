@@ -8,7 +8,14 @@ import {
   drawHorizontalLink,
   drawHorizontalLinkMain,
   drawVertialLink,
-  drawVertialLinkMain, getTitleContent, onMouseDown, onMouseOver, onMouseUp, vertialLinkLeftLineWidth
+  drawVertialLinkMain,
+  getTitleContent,
+  onMouseDown,
+  onMouseOver,
+  onMouseUp,
+  vertialLinkLeftLineWidth,
+  isHorizontal,
+  isVertialDisplayChildren
 } from "@/components/Organization/utils";
 import arr from './data.json'
 
@@ -19,30 +26,30 @@ const _verticalGap = 20;
 // 水平间距
 // eslint-disable-next-line no-underscore-dangle
 const _horizontalGap = 30;
-// 展示为从左到右的级别
-const horizontalLevel = 2;
 
 const LoopItem = (
   {
-    children, item, setShowChildren, arrIndex, objOpen,isFirst,isLast
+    children, item, setShowChildren, arrIndex, objOpen
   }: {
-    children: any, item: any, setShowChildren: any, arrIndex: number[], objOpen: object,isFirst:boolean,isLast:boolean
+    children: any, item: any, setShowChildren: any, arrIndex: number[], objOpen: object
   }) => {
-  const len = arrIndex.length;
   const hasChild = item.children && item.children.length;
   const key = arrIndex.join('_');
   const showChildren = objOpen[key];
   const loopItemRef = React.useRef(null) as any;
 
-  const horizontalGap = len < horizontalLevel ? 15 : _horizontalGap;
+  const horizontalGap = isHorizontal(item) ? 15 : _horizontalGap;
   const verticalGap = _verticalGap;
   const leftLineLeft = horizontalGap - vertialLinkLeftLineWidth(horizontalGap);
+  if(item.level <=1){
+    console.info(item.level,isVertialDisplayChildren(item))
+  }
   return (
     <div className="level" style={{
       paddingLeft: horizontalGap,
       paddingRight: horizontalGap / 2,
       paddingTop: verticalGap,
-      textAlign: len === 1 ? 'center' : 'left',
+      textAlign: item.level === 0 ? 'center' : 'left',
     }}>
       <article className="title" style={{borderWidth,borderColor}}>
         {getTitleContent(item)}
@@ -54,7 +61,7 @@ const LoopItem = (
                     setShowChildren(!showChildren, arrIndex);
                   }}
                   style={{
-                    ...(len >= horizontalLevel ? {left: leftLineLeft} : {}),
+                    ...(isVertialDisplayChildren(item) ? {left: leftLineLeft} : {}),
                     backgroundColor,
                     border:`${borderWidth}px solid ${borderColor}`
                   }}
@@ -64,16 +71,17 @@ const LoopItem = (
           ) : null
         }
 
-        {drawHorizontalLink({showChildren, verticalGap, len, horizontalLevel, horizontalGap,isFirst,isLast})}
+        {drawHorizontalLink({showChildren, verticalGap, horizontalGap,item})}
 
-        {drawVertialLink({len, horizontalLevel, horizontalGap, verticalGap,isLast})}
+        {drawVertialLink({horizontalGap, verticalGap,item})}
       </article>
+
 
       {
         hasChild ? <div ref={loopItemRef}
                         className="content"
                         style={{
-                          flexDirection: len > 1 ? 'column' : 'row',
+                          flexDirection: (isVertialDisplayChildren(item) ? 'column' : 'row'),
                           ...(!showChildren ? {display: 'none'} : {})
                         }}>
           {children}
@@ -82,11 +90,11 @@ const LoopItem = (
 
       {/* 贯穿所有孩子的大长线 */}
       {drawHorizontalLinkMain({
-        len, horizontalLevel, verticalGap,isFirst,isLast
+        verticalGap,item
       })}
 
       {drawVertialLinkMain({
-        len, horizontalLevel, horizontalGap,isLast
+        horizontalGap,item
       })}
 
     </div>
@@ -99,12 +107,10 @@ const loop = (orgList: any[], arrIndex: number[] = [], setShowChildren: any, obj
     const newArrIndex: number[] = [...arrIndex, index];
 
     return (
-      <LoopItem item={item}
+      <LoopItem item={{...item,level:newArrIndex.length -1,isFirst:index === 0,isLast:index+1 === orgList.length}}
                 arrIndex={newArrIndex}
                 setShowChildren={setShowChildren}
                 objOpen={objOpen}
-                isFirst={index === 0}
-                isLast={index === orgList.length-1}
       >
         {
           hasChild ? loop(item.children, newArrIndex, setShowChildren, objOpen) : null

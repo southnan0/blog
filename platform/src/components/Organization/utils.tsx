@@ -4,25 +4,36 @@ export const borderWidth = 1;
 export const borderColor = '#ccc';
 export const backgroundColor = '#fff';
 
-export const vertialLinkLeftLineWidth = (horizontalGap:number)=>{
-  return horizontalGap -5
+export const vertialLinkLeftLineWidth = (horizontalGap: number) => {
+  return horizontalGap - 5
 }
 
-export const horizontalLinktopLineHeight = (verticalGap:number)=>{
+export const horizontalLinktopLineHeight = (verticalGap: number) => {
   return verticalGap - 5;
+}
+
+export const displayDirection = (item:any)=>{
+  if([0,1].indexOf(item.level) !==-1){
+    return 'horizontal'
+  }
+  return 'vertical'
+}
+
+export const isHorizontal = (item:any)=>displayDirection(item) === 'horizontal'
+
+const getChildFirstItem = (item:any)=>{
+    return {
+      level:item.level+1
+    }
 }
 
 /**
  *  水平铺开的孩子
  *  改规则可以自定义
  */
-export const isHorizontalDisplayChildren = (
-  {
-    currentIndex: len, horizontalLevel
-  }: {
-    currentIndex: number, horizontalLevel: number
-  }) => {
-  return len > 1 && len <= horizontalLevel
+export const isHorizontalDisplayChildren = (item:any) => {
+  const childItem = getChildFirstItem(item);
+  return childItem && isHorizontal(childItem)
 }
 
 
@@ -31,42 +42,39 @@ export const isHorizontalDisplayChildren = (
  *  改规则可以自定义
  */
 export const isVertialDisplayChildren = (
-  {
-    currentIndex: len, horizontalLevel
-  }: {
-    currentIndex: number, horizontalLevel: number
-  }
+  item:any
 ) => {
-  return len > horizontalLevel
+  const childItem = getChildFirstItem(item);
+  return childItem && !isHorizontal(childItem)
 }
 
 export const drawHorizontalLink = (
   {
-    showChildren, verticalGap, len, horizontalLevel, horizontalGap,isFirst,isLast
+    showChildren, verticalGap, horizontalGap, item
   }: {
-    showChildren: boolean, verticalGap: number, len: number, horizontalLevel: number, horizontalGap: number,isFirst:boolean,isLast:boolean
+    showChildren: boolean, verticalGap: number, horizontalGap: number, item:any
   }) => {
   const topLineHeight = horizontalLinktopLineHeight(verticalGap);
   const bottomLineHeight = verticalGap - topLineHeight;
 
   return (
     <>
-      {(len < horizontalLevel && showChildren) ?
+      {(item.isFirst && isHorizontalDisplayChildren(item) && showChildren) ?
         <span className="line"
               style={{
                 height: topLineHeight,
                 bottom: -(topLineHeight + borderWidth),
-                backgroundColor:borderColor,
+                backgroundColor: borderColor,
                 width: borderWidth
               }}/> : null
       }
       {
-        isHorizontalDisplayChildren({currentIndex: len, horizontalLevel}) ?
+        isHorizontal(item) ?
           <>
             <div className="line" style={{
               height: bottomLineHeight,
               top: -(bottomLineHeight + borderWidth),
-              backgroundColor:borderColor,
+              backgroundColor: borderColor,
               width: borderWidth
             }}/>
             <div className="horizontal-line"
@@ -75,8 +83,8 @@ export const drawHorizontalLink = (
                    height: borderWidth,
                    width: `calc(50% + ${horizontalGap}px + ${borderWidth}px)`,
                    left: -(horizontalGap + borderWidth),
-                   ...(isFirst? {zIndex:1,backgroundColor}:{backgroundColor:borderColor}),
-                   ...(isLast? {zIndex:1}:{})
+                   ...(item.isFirst ? {zIndex: 1, backgroundColor} : {backgroundColor: borderColor}),
+                   ...(item.isLast ? {zIndex: 1} : {})
                  }}/>
           </> : null
       }
@@ -86,34 +94,32 @@ export const drawHorizontalLink = (
 
 /**
  * 垂直图  6-b 横向连线  和纵向的填充连接线
- * @param len
- * @param horizontalLevel
  * @param horizontalGap
  * @param verticalGap
  */
 export const drawVertialLink = (
   {
-    len, horizontalLevel, horizontalGap, verticalGap,isLast
+    horizontalGap, verticalGap, item
   }: {
-    len: number, horizontalLevel: number, horizontalGap: number, verticalGap: number,isLast:boolean
+    horizontalGap: number, verticalGap: number, item: any
   }) => {
   const leftLineWidth = vertialLinkLeftLineWidth(horizontalGap);
   return (
     <>
-      {isVertialDisplayChildren({currentIndex: len, horizontalLevel}) ? (
+      {!isHorizontal(item) ? (
         <>
           <div className="line-2" style={{
             width: leftLineWidth,
             left: -(leftLineWidth + borderWidth),
             height: borderWidth,
-            backgroundColor:borderColor
+            backgroundColor: borderColor
           }}/>
           <span className="vertial-line" style={{
             height: `calc(50% + ${verticalGap + borderWidth}px)`,
             left: -(leftLineWidth + borderWidth),
             top: -(verticalGap + borderWidth),
             backgroundColor: borderColor,
-            ...(isLast ? {width: borderWidth}:{width:0}),
+            ...(item.isLast ? {width: borderWidth} : {width: 0}),
           }}/>
         </>
       ) : null}
@@ -123,25 +129,23 @@ export const drawVertialLink = (
 
 /**
  * 5-b的那些竖线
- * @param len
- * @param horizontalLevel
  * @param verticalGap
  */
 export const drawHorizontalLinkMain = (
   {
-    len, horizontalLevel, verticalGap,isFirst,isLast
+    verticalGap,item
   }: {
-    len: number, horizontalLevel: number, verticalGap: number,isFirst:boolean,isLast:boolean
+    verticalGap: number,item:any
   }) => {
   const horizontalLineTop = horizontalLinktopLineHeight(verticalGap);
 
-  return isHorizontalDisplayChildren({currentIndex: len, horizontalLevel}) ?
+  return (isHorizontal(item)) ?
     <div className="horizontal-line" style={{
       top: horizontalLineTop,
-      ...(isFirst ? {left:0,width:'100%'}:{}),
-      ...(isLast ? {right:0,width:0}:{}),
-      height:borderWidth,
-      backgroundColor:borderColor
+      ...(item.isFirst ? {left: 0, width: '100%'} : {}),
+      ...(item.isLast ? {right: 0, width: 0} : {}),
+      height: borderWidth,
+      backgroundColor: borderColor
     }}/>
     : null
 };
@@ -164,24 +168,23 @@ export const drawHorizontalLinkMain = (
 
 /**
  * 上图对应2的横线
- * @param len
- * @param horizontalLevel
  * @param horizontalGap
  */
 export const drawVertialLinkMain = (
   {
-    len, horizontalLevel, horizontalGap,isLast
+    horizontalGap, item
   }: {
-    len: number, horizontalLevel: number, horizontalGap: number,isLast:boolean
+    horizontalGap: number, item: any
   }
 ) => {
   const leftLineLeft = horizontalGap - vertialLinkLeftLineWidth(horizontalGap);
 
-  return isVertialDisplayChildren({currentIndex: len, horizontalLevel}) ?
+  return !isHorizontal(item) ?
     <div className="vertial-line" style={{
       left: leftLineLeft,
-      width:borderWidth,
-      backgroundColor:borderColor,...(isLast?{height:0}:{})}}/> : null
+      width: borderWidth,
+      backgroundColor: borderColor, ...(item.isLast ? {height: 0} : {})
+    }}/> : null
 };
 
 export const getTitleContent = (item: any) => {
