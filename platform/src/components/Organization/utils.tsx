@@ -139,7 +139,9 @@ export const drawHorizontalLinkMain = (
     <div className="horizontal-line" style={{
       top: horizontalLineTop,
       ...(isFirst ? {left:0,width:'100%'}:{}),
-      ...(isLast ? {right:0,width:0}:{})
+      ...(isLast ? {right:0,width:0}:{}),
+      height:borderWidth,
+      backgroundColor:borderColor
     }}/>
     : null
 };
