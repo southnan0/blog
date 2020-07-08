@@ -1,1 +1,394 @@
-[{"label":"欢聚时代","id":"0","onJob":50,"toBeEmployed":0,"recruitment":8,"parttime":8,"leader":"卢金辉","children":[{"label":"爱神项目技术中心","id":"1","onJob":50,"toBeEmployed":0,"recruitment":8,"parttime":8,"leader":"卢金辉","children":[{"label":"语音社交技术组","id":"11","onJob":30,"toBeEmployed":0,"recruitment":1,"parttime":0,"leader":"刘涛","children":[{"label":"web前端开发组","id":"111","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1111"},{"label":"矿建龙","id":"1112"}]},{"label":"Android客户端开发组","id":"112","onJob":10,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"周明","children":[{"label":"和兴","id":"1121"}]},{"label":"后端开发组","id":"113","onJob":5,"toBeEmployed":0,"recruitment":0,"parttime":1,"leader":"梁刚","children":[{"label":"和兴","id":"1131"},{"label":"李佳霖","id":"1132","isParttime":true}]}]},{"label":"视频社交技术组","id":"12","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"121","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]}]},{"label":"Moschat技术中心","id":"2","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"头号玩家技术中心","id":"3","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]},{"label":"小说项目技术中心","id":"4","onJob":20,"toBeEmployed":0,"recruitment":7,"parttime":0,"leader":"温子恒","children":[{"label":"web前端开发组","id":"21","onJob":3,"toBeEmployed":0,"recruitment":0,"parttime":0,"leader":"李毅","children":[{"label":"王建","id":"1211"},{"label":"矿建龙","id":"1212","isTransfer":true}]}]}]}]
+[
+    {
+        "label": "欢聚时代",
+        "id": "0",
+        "onJob": 50,
+        "toBeEmployed": 0,
+        "recruitment": 8,
+        "parttime": 8,
+        "leader": "卢金辉",
+        "children": [
+            {
+                "label": "爱神项目技术中心",
+                "id": "1",
+                "onJob": 50,
+                "toBeEmployed": 0,
+                "recruitment": 8,
+                "parttime": 8,
+                "leader": "卢金辉",
+                "children": [
+                    {
+                        "label": "语音社交技术组",
+                        "id": "11",
+                        "onJob": 30,
+                        "toBeEmployed": 0,
+                        "recruitment": 1,
+                        "parttime": 0,
+                        "leader": "刘涛",
+                        "children": [
+                            {
+                                "label": "web前端开发组",
+                                "id": "111",
+                                "onJob": 3,
+                                "toBeEmployed": 0,
+                                "recruitment": 0,
+                                "parttime": 0,
+                                "leader": "李毅",
+                                "children": [
+                                    {
+                                        "label": "王建",
+                                        "id": "1111"
+                                    },
+                                    {
+                                        "label": "矿建龙",
+                                        "id": "1112"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Android客户端开发组",
+                                "id": "112",
+                                "onJob": 10,
+                                "toBeEmployed": 0,
+                                "recruitment": 0,
+                                "parttime": 0,
+                                "leader": "周明",
+                                "children": [
+                                    {
+                                        "label": "和兴",
+                                        "id": "1121"
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "后端开发组",
+                                "id": "113",
+                                "onJob": 5,
+                                "toBeEmployed": 0,
+                                "recruitment": 0,
+                                "parttime": 1,
+                                "leader": "梁刚",
+                                "children": [
+                                    {
+                                        "label": "和兴",
+                                        "id": "1131"
+                                    },
+                                    {
+                                        "label": "李佳霖",
+                                        "id": "1132",
+                                        "isParttime": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "label": "视频社交技术组",
+                        "id": "12",
+                        "onJob": 20,
+                        "toBeEmployed": 0,
+                        "recruitment": 7,
+                        "parttime": 0,
+                        "leader": "温子恒",
+                        "children": [
+                            {
+                                "label": "web前端开发组",
+                                "id": "121",
+                                "onJob": 3,
+                                "toBeEmployed": 0,
+                                "recruitment": 0,
+                                "parttime": 0,
+                                "leader": "李毅",
+                                "children": [
+                                    {
+                                        "label": "王建",
+                                        "id": "1211"
+                                    },
+                                    {
+                                        "label": "矿建龙",
+                                        "id": "1212",
+                                        "isTransfer": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Moschat技术中心",
+                "id": "2",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "头号玩家技术中心",
+                "id": "3",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "小说项目技术中心",
+                "id": "4",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "小说项目技术中心",
+                "id": "4",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "小说项目技术中心",
+                "id": "4",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "小说项目技术中心",
+                "id": "4",
+                "onJob": 20,
+                "toBeEmployed": 0,
+                "recruitment": 7,
+                "parttime": 0,
+                "leader": "温子恒",
+                "children": [
+                    {
+                        "label": "web前端开发组",
+                        "id": "21",
+                        "onJob": 3,
+                        "toBeEmployed": 0,
+                        "recruitment": 0,
+                        "parttime": 0,
+                        "leader": "李毅",
+                        "children": [
+                            {
+                                "label": "王建",
+                                "id": "1211"
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy",
+                                "id": "1213"
+                            },
+                            {
+                                "label": "Lucy",
+                                "id": "1214",
+                                "isTransfer": true
+                            },{
+                                "label": "王建1",
+                                "id": "1215"
+                            },
+                            {
+                                "label": "矿建龙2",
+                                "id": "1216",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy1",
+                                "id": "1217"
+                            },
+                            {
+                                "label": "Lucy1",
+                                "id": "1218",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy",
+                                "id": "1213"
+                            },
+                            {
+                                "label": "Lucy",
+                                "id": "1214",
+                                "isTransfer": true
+                            },{
+                                "label": "王建1",
+                                "id": "1215"
+                            },
+                            {
+                                "label": "矿建龙2",
+                                "id": "1216",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy1",
+                                "id": "1217"
+                            },
+                            {
+                                "label": "Lucy1",
+                                "id": "1218",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "矿建龙",
+                                "id": "1212",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy",
+                                "id": "1213"
+                            },
+                            {
+                                "label": "Lucy",
+                                "id": "1214",
+                                "isTransfer": true
+                            },{
+                                "label": "王建1",
+                                "id": "1215"
+                            },
+                            {
+                                "label": "矿建龙2",
+                                "id": "1216",
+                                "isTransfer": true
+                            },
+                            {
+                                "label": "Andy1",
+                                "id": "1217"
+                            },
+                            {
+                                "label": "Lucy1",
+                                "id": "1218",
+                                "isTransfer": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
