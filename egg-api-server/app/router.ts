@@ -11,4 +11,7 @@ export default (app: Application) => {
 
   router.get('/sort/:id?', controller.sort.list);
   router.post('/sort', controller.sort.add);
+
+  router.get('/article/:id?', controller.article.list);
+  router.post('/article', controller.article.add);
 };

@@ -20,7 +20,7 @@ const buildToken = (result, jwtSecret) => {
   },
   jwtSecret,
   {
-    expiresIn: 60 * 60,
+    expiresIn: '1h',
   });
 };
 

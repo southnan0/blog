@@ -77,6 +77,10 @@ const errorHandler = (error: { response: Response }) => {
       message: `请求错误 ${status}: ${url}`,
       description: errorText,
     });
+
+    if([401,403].indexOf(response.status) !==-1){
+      history.replace('/user/login');
+    }
   }
 
   if (!response) {

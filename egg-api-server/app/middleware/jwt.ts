@@ -19,10 +19,11 @@ module.exports = (options, app) => {
       }
     } else { // 当前token值存在
       const redisOutLogin = await app.redis.get(outLoginTokenKey);
-      const arrToken = redisOutLogin.split(',').filter(item => item);
+      const arrToken = redisOutLogin?.split(',')?.filter(item => item);
 
-      if (arrToken.indexOf(token) !== -1) {
+      if (arrToken && arrToken?.indexOf(token) !== -1) {
         ctx.status = 401;
+
         ctx.body = {
           message: 'Token已失效',
         };
@@ -41,6 +42,8 @@ module.exports = (options, app) => {
           };
           return;
         }
+
+        console.info('Date.now()========>', Date.now(), decode.expire);
         if (Date.now() - decode.expire > 0) {
           ctx.status = 401;
           ctx.body = {
