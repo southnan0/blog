@@ -3,6 +3,9 @@ import React from 'react'
 export const borderWidth = 1;
 export const borderColor = '#ccc';
 export const backgroundColor = '#fff';
+export const getLineColor = ()=>{
+  return 'blue'
+}
 
 export const vertialLinkLeftLineWidth = (horizontalGap: number) => {
   return horizontalGap - 5
@@ -48,6 +51,8 @@ export const isVertialDisplayChildren = (
   return childItem && !isHorizontal(childItem)
 }
 
+export const isTopLevel = (item:any)=>item.level === 0
+
 export const drawHorizontalLink = (
   {
     showChildren, verticalGap, horizontalGap, item
@@ -64,17 +69,17 @@ export const drawHorizontalLink = (
               style={{
                 height: topLineHeight,
                 bottom: -(topLineHeight + borderWidth),
-                backgroundColor: borderColor,
+                backgroundColor: getLineColor(),
                 width: borderWidth
               }}/> : null
       }
       {
-        isHorizontal(item) ?
+        (!isTopLevel(item) && isHorizontal(item)) ?
           <>
             <div className="line" style={{
               height: bottomLineHeight,
               top: -(bottomLineHeight + borderWidth),
-              backgroundColor: borderColor,
+              backgroundColor: getLineColor(),
               width: borderWidth
             }}/>
             <div className="horizontal-line"
@@ -83,8 +88,8 @@ export const drawHorizontalLink = (
                    height: borderWidth,
                    width: `calc(50% + ${horizontalGap}px + ${borderWidth}px)`,
                    left: -(horizontalGap + borderWidth),
-                   ...(item.isFirst ? {zIndex: 1, backgroundColor} : {backgroundColor: borderColor}),
-                   ...(item.isLast ? {zIndex: 1} : {})
+                   ...(item.isFirst ? {zIndex: 1, backgroundColor, height:borderWidth+2,top:-(bottomLineHeight + borderWidth+1)} : {}),  
+                   ...(item.isLast ? {zIndex: 1,backgroundColor: getLineColor()} : {})
                  }}/>
           </> : null
       }
@@ -112,13 +117,13 @@ export const drawVertialLink = (
             width: leftLineWidth,
             left: -(leftLineWidth + borderWidth),
             height: borderWidth,
-            backgroundColor: borderColor
+            backgroundColor: getLineColor()
           }}/>
           <span className="vertial-line" style={{
             height: `calc(50% + ${verticalGap + borderWidth}px)`,
             left: -(leftLineWidth + borderWidth),
             top: -(verticalGap + borderWidth),
-            backgroundColor: borderColor,
+            backgroundColor: getLineColor(),
             ...(item.isLast ? {width: borderWidth} : {width: 0}),
           }}/>
         </>
@@ -128,7 +133,7 @@ export const drawVertialLink = (
 };
 
 /**
- * 5-b的那些竖线
+ * 上图对应2的横线
  * @param verticalGap
  */
 export const drawHorizontalLinkMain = (
@@ -139,17 +144,14 @@ export const drawHorizontalLinkMain = (
   }) => {
   const horizontalLineTop = horizontalLinktopLineHeight(verticalGap);
 
-  return (isHorizontal(item)) ?
-    <div className="horizontal-line" style={{
-      top: horizontalLineTop,
-      ...(item.isFirst ? {left: 0, width: '100%'} : {}),
-      ...(item.isLast ? {right: 0, width: 0} : {}),
-      height: borderWidth,
-      backgroundColor: borderColor
-    }}/>
-    : null
+  return (isHorizontal(item) && item.level >0) ? <div className="horizontal-line" style={{
+    top: horizontalLineTop,
+    ...(item.isFirst ? {left: 0, width: '100%'} : {}),
+    ...(item.isLast ? {right: 0, width: 0} : {}),
+    height: borderWidth,
+    backgroundColor: getLineColor()
+  }}/>:null
 };
-
 
 /**        [ 欢聚时代 ]
  *1              |
@@ -167,7 +169,7 @@ export const drawHorizontalLinkMain = (
  */
 
 /**
- * 上图对应2的横线
+ * 
  * @param horizontalGap
  */
 export const drawVertialLinkMain = (
@@ -183,7 +185,7 @@ export const drawVertialLinkMain = (
     <div className="vertial-line" style={{
       left: leftLineLeft,
       width: borderWidth,
-      backgroundColor: borderColor, ...(item.isLast ? {height: 0} : {})
+      backgroundColor: getLineColor(), ...(item.isLast ? {height: 0} : {})
     }}/> : null
 };
 
