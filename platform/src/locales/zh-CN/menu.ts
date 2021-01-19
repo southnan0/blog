@@ -50,4 +50,5 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   'menu.sort.list': '分类管理',
+  'menu.article.list': '文章管理',
 };

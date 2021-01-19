@@ -76,6 +76,12 @@ export default defineConfig({
       component: './sort',
     },
     {
+      name: 'article.list',
+      icon: 'table',
+      path: '/article',
+      component: './article',
+    },
+    {
       path: '/',
       redirect: '/welcome',
     },

@@ -12,7 +12,7 @@ export default class SortController extends Controller {
     const { ctx } = this;
 
     const rule = {
-      articleName: { type: 'string', required: true, message: '文章标题不能为空' },
+      title: { type: 'string', required: true, message: '文章标题不能为空' },
       description: { type: 'string', required: false, max: 100 },
     };
     const postParams = ctx.request.body;

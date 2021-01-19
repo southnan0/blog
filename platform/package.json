@@ -64,6 +64,7 @@
     "qs": "^6.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "s_calculation": "^1.0.2",
     "umi": "^3.1.0",
     "umi-request": "^1.0.8",
     "use-merge-value": "^1.0.1"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Typography } from 'antd';
-import Organization from '@/components/Organization';
+// import Organization from '@/components/Organization';
 
 export default (): React.ReactNode => (
   <PageContainer>
@@ -9,7 +9,7 @@ export default (): React.ReactNode => (
       <Typography.Text strong>
         欢迎你
       </Typography.Text>
-      <Organization />
+      {/*<Organization />*/}
     </Card>
   </PageContainer>
 );

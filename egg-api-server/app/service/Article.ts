@@ -30,7 +30,7 @@ export default class Sort extends Service {
       const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
       result = await this.app.mysql.query('INSERT INTO ' +
                 'tb_article (article_name, description, sort_id, created_time, updated_time, status) ' +
-                `VALUES ('${params.articleName}', '${params.description || ''}', ${params.sortId || 0},'${now}','${now}',0)`);
+                `VALUES ('${params.title}', '${params.description || ''}', ${params.sortId || 0},'${now}','${now}',0)`);
 
       console.info('insert result:======>', result);
       return successFn({
